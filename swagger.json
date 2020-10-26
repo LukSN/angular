@@ -1,5 +1,4 @@
 {
-  "openapi": "3.0.1",
   "info": {
     "title": "SchulwebBE",
     "version": "1.0"
@@ -15,10 +14,7 @@
           {
             "name": "read",
             "in": "query",
-            "schema": {
-              "type": "boolean",
-              "nullable": true
-            }
+            "type": "boolean"
           }
         ],
         "responses": {
@@ -32,47 +28,32 @@
           "Books"
         ],
         "operationId": "Add",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/BookCreateDto"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/BookCreateDto"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/BookCreateDto"
-              }
-            }
-          }
-        },
         "responses": {
           "200": {
             "description": "Success",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/BookDto"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/BookDto"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/BookDto"
-                }
-              }
+            "schema": {
+              "$ref": "#/definitions/BookDto"
             }
           }
-        }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/BookCreateDto"
+            }
+          }
+        ],
+        "consumes": [
+          "application/json",
+          "text/json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ]
       },
       "delete": {
         "tags": [
@@ -83,7 +64,8 @@
           "200": {
             "description": "Success"
           }
-        }
+        },
+        "parameters": []
       }
     },
     "/api/books/{id}": {
@@ -97,32 +79,13 @@
             "name": "id",
             "in": "path",
             "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
+            "format": "int32",
+            "type": "integer"
           }
         ],
         "responses": {
           "200": {
-            "description": "Success",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/BookDto"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/BookDto"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/BookDto"
-                }
-              }
-            }
+            "description": "Success"
           }
         }
       },
@@ -136,10 +99,8 @@
             "name": "id",
             "in": "path",
             "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
+            "format": "int32",
+            "type": "integer"
           }
         ],
         "responses": {
@@ -158,139 +119,120 @@
             "name": "id",
             "in": "path",
             "required": true,
+            "format": "int32",
+            "type": "integer"
+          },
+          {
+            "name": "body",
+            "in": "body",
             "schema": {
-              "type": "integer",
-              "format": "int32"
+              "$ref": "#/definitions/BookUpdateDto"
             }
           }
         ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/BookUpdateDto"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/BookUpdateDto"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/BookUpdateDto"
-              }
-            }
-          }
-        },
         "responses": {
           "200": {
             "description": "Success",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/BookDto"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/BookDto"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/BookDto"
-                }
-              }
+            "schema": {
+              "$ref": "#/definitions/BookDto"
             }
           }
-        }
+        },
+        "consumes": [
+          "application/json",
+          "text/json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ]
       }
     }
   },
-  "components": {
-    "schemas": {
-      "BookCreateDto": {
-        "required": [
-          "title"
-        ],
-        "type": "object",
-        "properties": {
-          "read": {
-            "type": "boolean"
-          },
-          "title": {
-            "type": "string"
-          },
-          "author": {
-            "type": "string",
-            "nullable": true
-          },
-          "description": {
-            "type": "string",
-            "nullable": true
-          },
-          "genre": {
-            "type": "string",
-            "nullable": true
-          }
+  "swagger": "2.0",
+  "definitions": {
+    "BookCreateDto": {
+      "required": [
+        "title"
+      ],
+      "type": "object",
+      "properties": {
+        "read": {
+          "type": "boolean"
         },
-        "additionalProperties": false
+        "title": {
+          "type": "string"
+        },
+        "author": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "description": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "genre": {
+          "type": "string",
+          "x-nullable": true
+        }
       },
-      "BookDto": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "read": {
-            "type": "boolean"
-          },
-          "title": {
-            "type": "string",
-            "nullable": true
-          },
-          "author": {
-            "type": "string",
-            "nullable": true
-          },
-          "description": {
-            "type": "string",
-            "nullable": true
-          },
-          "genre": {
-            "type": "string",
-            "nullable": true
-          }
+      "additionalProperties": false
+    },
+    "BookDto": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32"
         },
-        "additionalProperties": false
+        "read": {
+          "type": "boolean"
+        },
+        "title": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "author": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "description": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "genre": {
+          "type": "string",
+          "x-nullable": true
+        }
       },
-      "BookUpdateDto": {
-        "type": "object",
-        "properties": {
-          "read": {
-            "type": "boolean"
-          },
-          "title": {
-            "type": "string",
-            "nullable": true
-          },
-          "author": {
-            "type": "string",
-            "nullable": true
-          },
-          "description": {
-            "type": "string",
-            "nullable": true
-          },
-          "genre": {
-            "type": "string",
-            "nullable": true
-          }
+      "additionalProperties": false
+    },
+    "BookUpdateDto": {
+      "type": "object",
+      "properties": {
+        "read": {
+          "type": "boolean"
         },
-        "additionalProperties": false
-      }
+        "title": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "author": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "description": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "genre": {
+          "type": "string",
+          "x-nullable": true
+        }
+      },
+      "additionalProperties": false
     }
-  }
+  },
+  "x-components": {}
 }
