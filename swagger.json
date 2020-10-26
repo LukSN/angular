@@ -23,33 +23,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Success",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/BookDto"
-                  }
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/BookDto"
-                  }
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/BookDto"
-                  }
-                }
-              }
-            }
+            "description": "Success"
           }
         }
       },
@@ -236,19 +210,17 @@
   },
   "components": {
     "schemas": {
-      "BookDto": {
+      "BookCreateDto": {
+        "required": [
+          "title"
+        ],
         "type": "object",
         "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int32"
-          },
           "read": {
             "type": "boolean"
           },
           "title": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "author": {
             "type": "string",
@@ -265,17 +237,19 @@
         },
         "additionalProperties": false
       },
-      "BookCreateDto": {
-        "required": [
-          "title"
-        ],
+      "BookDto": {
         "type": "object",
         "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
           "read": {
             "type": "boolean"
           },
           "title": {
-            "type": "string"
+            "type": "string",
+            "nullable": true
           },
           "author": {
             "type": "string",
